@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/teambition/gear"
+	"github.com/eavesmy/gear"
 )
 
 // Log records key-value pairs for structured logging.

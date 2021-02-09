@@ -16,6 +16,7 @@ import (
 
 	"github.com/go-http-utils/cookie"
 	"github.com/go-http-utils/negotiator"
+	"google.golang.org/protobuf/proto"
 )
 
 type contextKey int
@@ -516,6 +517,18 @@ func (ctx *Context) Stream(code int, contentType string, r io.Reader) (err error
 		_, err = io.Copy(ctx.Res, r)
 	}
 	return
+}
+
+func (ctx *Context) Proto(code int, body interface{}) (err error) {
+	ctx.Status(code)
+	ctx.Type("application/proto")
+
+	b, err := proto.Marshal(body.(proto.Message))
+	if err != nil {
+		return
+	}
+
+	return ctx.End(code, b)
 }
 
 // Attachment sends a response from `io.ReaderSeeker` as attachment, prompting
