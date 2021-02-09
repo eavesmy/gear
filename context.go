@@ -45,7 +45,6 @@ type Any interface {
 
 // BodyTemplate interface is used by ctx.Any.
 type BodyTemplate interface {
-	Validate() error
 }
 
 // Context represents the context of the current HTTP request. It holds request and
@@ -381,7 +380,7 @@ func (ctx *Context) ParseBody(body BodyTemplate) error {
 	if err = ctx.app.bodyParser.Parse(buf, body, mediaType, params["charset"]); err != nil {
 		return err
 	}
-	return body.Validate()
+	return nil
 }
 
 // Get retrieves data from the request Header.
