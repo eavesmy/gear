@@ -522,8 +522,16 @@ func (ctx *Context) Stream(code int, contentType string, r io.Reader) (err error
 
 func (ctx *Context) Proto(code int, body proto.Message) (err error) {
 
-	ctx.Status(code)
+	ctx.Status(200)
 	ctx.Type(gear.MIMEApplicationProtobuf)
+
+	if ctx.app.dataPacking != nil {
+		d, err := ctx.app.dataPacking(code, body)
+		if err != nil {
+			return err
+		}
+		body = d.(proto.Message)
+	}
 
 	b, err := proto.Marshal(body)
 

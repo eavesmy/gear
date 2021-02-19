@@ -185,6 +185,7 @@ type App struct {
 	timeout     time.Duration // Default to 0, no time out.
 	logger      *log.Logger
 	onerror     func(*Context, HTTPError)
+	dataPacking func(int, interface{}) (interface{}, error)
 	withContext func(*http.Request) context.Context
 	settings    map[interface{}]interface{}
 }
@@ -268,6 +269,8 @@ const (
 	// Set a app env string to app, it can be retrieved by `ctx.Setting(gear.SetEnv)`.
 	// Default to os process "APP_ENV" or "development".
 	SetEnv
+
+	SetDataPacking
 )
 
 // Set add key/value settings to app. The settings can be retrieved by `ctx.Setting(key)`.
@@ -325,6 +328,12 @@ func (app *App) Set(key, val interface{}) {
 		case SetEnv:
 			if _, ok := val.(string); !ok {
 				panic(NewAppError("SetEnv setting must be string"))
+			}
+		case SetDataPacking:
+			if dataPacking, ok := val.(func(int, interface{}) (interface{}, error)); !ok {
+				panic(NewAppError("SetSendBefore setting must be func(int,interface{})"))
+			} else {
+				app.dataPacking = dataPacking
 			}
 		}
 		app.settings[k] = val
