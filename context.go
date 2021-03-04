@@ -17,7 +17,6 @@ import (
 	"github.com/go-http-utils/cookie"
 	"github.com/go-http-utils/negotiator"
 	"github.com/golang/protobuf/proto"
-	"github.com/teambition/gear"
 )
 
 type contextKey int
@@ -520,13 +519,13 @@ func (ctx *Context) Stream(code int, contentType string, r io.Reader) (err error
 	return
 }
 
-func (ctx *Context) Proto(code int, body proto.Message) (err error) {
+func (ctx *Context) Proto(code int, body proto.Message, msg ...string) (err error) {
 
 	ctx.Status(200)
-	ctx.Type(gear.MIMEApplicationProtobuf)
+	ctx.Type(MIMEApplicationProtobuf)
 
 	if ctx.app.dataPacking != nil {
-		d, err := ctx.app.dataPacking(code, body)
+		d, err := ctx.app.dataPacking(code, body, msg...)
 		if err != nil {
 			return err
 		}

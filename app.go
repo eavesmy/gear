@@ -185,7 +185,7 @@ type App struct {
 	timeout     time.Duration // Default to 0, no time out.
 	logger      *log.Logger
 	onerror     func(*Context, HTTPError)
-	dataPacking func(int, interface{}) (interface{}, error)
+	dataPacking func(int, interface{}, ...string) (interface{}, error)
 	withContext func(*http.Request) context.Context
 	settings    map[interface{}]interface{}
 }
@@ -330,7 +330,7 @@ func (app *App) Set(key, val interface{}) {
 				panic(NewAppError("SetEnv setting must be string"))
 			}
 		case SetDataPacking:
-			if dataPacking, ok := val.(func(int, interface{}) (interface{}, error)); !ok {
+			if dataPacking, ok := val.(func(int, interface{}, ...string) (interface{}, error)); !ok {
 				panic(NewAppError("SetSendBefore setting must be func(int,interface{})"))
 			} else {
 				app.dataPacking = dataPacking
