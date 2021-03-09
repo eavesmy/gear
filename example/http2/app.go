@@ -3,9 +3,9 @@ package main
 import (
 	"net/http"
 
-	"github.com/teambition/gear"
-	"github.com/teambition/gear/logging"
-	"github.com/teambition/gear/middleware/favicon"
+	"github.com/eavesmy/gear"
+	"github.com/eavesmy/gear/logging"
+	"github.com/eavesmy/gear/middleware/favicon"
 )
 
 // go run app.go
