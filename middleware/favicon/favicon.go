@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/teambition/gear"
+	"github.com/eavesmy/gear"
 )
 
 // New creates a favicon middleware to serve favicon from the provided directory.
