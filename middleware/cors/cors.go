@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/teambition/gear"
+	"github.com/eavesmy/gear"
 )
 
 // Options is cors middleware options.
