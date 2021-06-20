@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/teambition/gear"
+	"github.com/eavesmy/gear"
 )
 
 // Options is static middleware options
